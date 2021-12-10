@@ -25,6 +25,8 @@ class ProductionFactory extends Factory
     {
         return [
             //
+            'name' => $this->faker->name,
+            'path' => '/'
         ];
     }
 }

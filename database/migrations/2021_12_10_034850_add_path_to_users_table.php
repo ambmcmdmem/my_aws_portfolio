@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductionsTable extends Migration
+class AddPathToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateProductionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('productions', function (Blueprint $table) {
-            $table->id();
-            $table->integer('user_id');
-            $table->string('name');
+        Schema::table('users', function (Blueprint $table) {
+            //
             $table->string('path')->nullable();
-            $table->timestamps();
         });
     }
 
@@ -29,6 +26,9 @@ class CreateProductionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productions');
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->dropColumn('path');
+        });
     }
 }

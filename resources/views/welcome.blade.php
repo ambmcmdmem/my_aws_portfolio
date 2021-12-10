@@ -24,6 +24,7 @@
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline mr-2 d-inline-block">出品</a>
                     @auth
                         <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
                     @else
@@ -128,10 +129,14 @@
                 </div>
             </div> -->
             <div>
-                @if($productions)
-                productions
+                <!-- 商品が存在しない -->
+                @empty($productions[0])
+                    notfound
+                <!-- ,,する -->
                 @else
-                notfound
+                    @foreach($productions as $production)
+                        {{$production->id}}
+                    @endforeach
                 @endif
             </div>
         </div>
