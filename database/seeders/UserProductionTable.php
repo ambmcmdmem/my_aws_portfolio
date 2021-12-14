@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Production;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class UserProductionTable extends Seeder
 {
@@ -18,7 +19,12 @@ class UserProductionTable extends Seeder
     {
         //
         User::factory(10)->create()->each(function($user) {
-            Production::factory(10)->create(['user_id' => $user->id]);
+            Production::factory(10)->create([
+                'user_id' => $user->id,
+                'price' => random_int(1, 100000),
+            ])->each(function($production) {
+                
+            });
         });
 
         $myName = 'TestDaiki';

@@ -17,7 +17,7 @@ class CreateProductionsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('name');
-            $table->string('desc');
+            $table->string('desc')->nullable();
             $table->unsignedInteger('price');
             $table->timestamps();
         });
