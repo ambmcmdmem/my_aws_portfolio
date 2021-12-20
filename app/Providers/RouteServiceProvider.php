@@ -49,12 +49,12 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
 
             Route::prefix('production')
-                ->middleware('auth')
+                ->middleware(['web', 'auth'])
                 ->namespace($this->namespace)
                 ->group(base_path('routes/productions/production.php'));
 
             Route::prefix('user')
-                ->middleware('auth')
+                ->middleware(['web', 'auth'])
                 ->namespace($this->namespace)
                 ->group(base_path('routes/users/user.php'));
         });

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Production;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserProductionTable extends Seeder
 {
@@ -21,19 +22,16 @@ class UserProductionTable extends Seeder
         User::factory(10)->create()->each(function($user) {
             Production::factory(10)->create([
                 'user_id' => $user->id,
-                'price' => random_int(1, 100000),
-            ])->each(function($production) {
-                
-            });
+            ]);
         });
 
         $myName = 'TestDaiki';
         if(!User::whereName($myName)->exists()) {
-            User::whereId(1)->update([
+            User::whereId(2)->update([
                 'name' => $myName,
                 'email' => 'ambmcmdmem@au.com',
                 'email_verified_at' => now(),
-                'password' => 'Daiki931',
+                'password' => Hash::make('Daiki931'),
                 'remember_token' => Str::random(10)
             ]);
         }

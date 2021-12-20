@@ -16,14 +16,18 @@ class Production extends Model
     ];
 
     public function user() {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     public function categories() {
-        return $this->belongsToMany('App\Models\Category');
+        return $this->belongsToMany(Category::class);
     }
 
     public function images() {
         return $this->morphToMany(Image::class, 'imageable');
+    }
+
+    public function isNowUser(): bool {
+        return $this->user->id == auth()->user()->id;
     }
 }

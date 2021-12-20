@@ -8,23 +8,45 @@ use App\Models\Production;
 class ProductionController extends Controller
 {
     //
+    private static $productPath = 'app.productions.';
+
     public function sell() {
-        return view('app.productions.sell');
+        return view(self::$productPath . 'sell');
+    }
+
+    public function show(Production $production) {
+        $noImgPath = \App\Models\Image::getNoImgPath();
+        return view(self::$productPath . 'show', compact('production', 'noImgPath'));
     }
 
     public function post() {
-        $inputs = request()->validate([
+        request()->validate([
             'name' => ['required'],
-            'path' => ['image', 'required'],
+            'path' => ['image'],
             'price' => ['integer', 'min:1', 'required']
         ]);
 
+        $production = auth()->user()->productions()->create([
+            'name' => request('name'),
+            'desc' => request('desc'),
+            'price' => request('price')
+        ]);
+
         if(request('path')) {
-            $inputs['path'] = request('path')->store('images');
+            $path = request('path')->store('images');
+            $production->images()->create([
+                'path' => $path
+            ]);
         }
 
-        Production::create($inputs);
-
         return back()->with('success', '投稿が成功しました！');
+    }
+
+    public function edit(Production $production) {
+        return view('edit', compact('production'));
+    }
+
+    public function buy(Production $production) {
+        
     }
 }

@@ -26,7 +26,8 @@ class ProductionFactory extends Factory
         return [
             //
             'name' => $this->faker->name,
-            'path' => '/'
+            'price' => random_int(1, 100000),
+            'desc' => ''
         ];
     }
 }

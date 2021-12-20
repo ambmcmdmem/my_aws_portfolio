@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+
+@if(session()->has('success'))
+  <div class="alert alert">
+    {{session('success')}}
+  </div>
+@endif
 <form action="{{ route('production.post') }}" method="POST" enctype="multipart/form-data">
   @csrf
   <label>
