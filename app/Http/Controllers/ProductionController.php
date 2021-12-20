@@ -11,7 +11,7 @@ class ProductionController extends Controller
     private static $productPath = 'app.productions.';
 
     public function sell() {
-        return view(self::$productPath . 'sell');
+        return view(self::$productPath . 'edit');
     }
 
     public function show(Production $production) {
@@ -43,7 +43,7 @@ class ProductionController extends Controller
     }
 
     public function edit(Production $production) {
-        return view('edit', compact('production'));
+        return view(self::$productPath . 'edit', compact('production'));
     }
 
     public function buy(Production $production) {

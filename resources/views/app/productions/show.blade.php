@@ -23,7 +23,7 @@
   </div>
   
   <div class="w-25">
-    @if(!$production->isNowUser())
+    @if($production->isNowUser())
       <a href="{{route('production.edit', $production)}}">編集する</a>
     @else
       <!-- Button trigger modal -->
