@@ -11,11 +11,21 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .ts('resources/ts/app.tsx', 'public/js')
-    .ts('resources/ts/common.ts', 'public/js')
+const cssPath = 'public/css';
+const jsPath = 'public/js';
+
+const fromTsToPublicJsArr = [
+    'resources/ts/app.tsx',
+    'resources/ts/common.ts'
+];
+
+mix.js('resources/js/app.js', jsPath)
+    // .ts('resources/ts/app.tsx', 'public/js')
+    // .ts('resources/ts/common.ts', 'public/js')
+    .ts(fromTsToPublicJsArr, jsPath)
+    .ts('resources/ts/productions/production.ts', jsPath + '/productions')
     .react()
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', cssPath);
 
 if (mix.inProduction()){
     mix.version();

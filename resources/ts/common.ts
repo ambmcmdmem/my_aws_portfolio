@@ -1,4 +1,4 @@
-const selectImgDisplay = (imgInputElementId: string, displayElementId: string) => {
+export const selectImgDisplay = (imgInputElementId: string, displayElementId: string) => {
   const imgInputElement = document.getElementById(imgInputElementId);
   const displayElement = (<HTMLImageElement>document.getElementById(displayElementId));
 

@@ -5254,6 +5254,59 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/ts/common.ts":
+/*!********************************!*\
+  !*** ./resources/ts/common.ts ***!
+  \********************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.selectImgDisplay = void 0;
+
+var selectImgDisplay = function selectImgDisplay(imgInputElementId, displayElementId) {
+  var imgInputElement = document.getElementById(imgInputElementId);
+  var displayElement = document.getElementById(displayElementId);
+
+  if (imgInputElement === null || displayElement === null) {
+    alert('Element can\'t find.');
+    return;
+  }
+
+  imgInputElement.addEventListener('change', function (imgInputEvent) {
+    var fileTarget = imgInputEvent.target;
+
+    if (fileTarget.files === null) {
+      alert('file can not find');
+      return;
+    }
+
+    var file = fileTarget.files[0];
+    var imgReader = new FileReader();
+
+    imgReader.onload = function (imgReaderEvent) {
+      if (imgReaderEvent.target === null) {
+        alert('Img can not find.');
+        return;
+      }
+
+      if (typeof imgReaderEvent.target.result === 'string') {
+        displayElement.setAttribute('src', imgReaderEvent.target.result);
+      }
+    };
+
+    imgReader.readAsDataURL(file);
+  });
+};
+
+exports.selectImgDisplay = selectImgDisplay;
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -59062,6 +59115,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
 /******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/app.js")))
 /******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/ts/app.tsx")))
+/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/ts/common.ts")))
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/sass/app.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	

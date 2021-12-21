@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -9,9 +8,18 @@
   </div>
 @endif
 
+<?php
 
-<form action="{{ route('production.post') }}" method="POST" enctype="multipart/form-data">
+$isEditPage = !empty($production->name);
+$formRoute = $isEditPage ? route('production.update') : route('production.post');
+
+?>
+
+<form action="{{ $formRoute }}" method="POST" enctype="multipart/form-data">
   @csrf
+  @if($isEditPage)
+    @method('PUT')
+  @endif
   <label>
     <div>名前</div>
     <input type="text" name="name" value="{{My_func::retFormInputVal($production, 'name')}}" required>
@@ -28,10 +36,13 @@
     @unless(empty($production->images[0]->path))
       <div>
         <div>以前の画像</div>
-        <img width="50" src="{{$production->images[0]->path}}" alt="以前の画像">
+        <img width="100" src="{{$production->images[0]->path}}" alt="以前の画像">
       </div>
     @endif
-    <input type="file" name="path">
+    <div>
+      <input id="pathSelect" class="d-block" type="file" name="path">
+      <img width="100" id="displayImg" src="" alt="">
+    </div>
     @if($errors->get('path'))
     <ul>
       @foreach($errors->get('path') as $errorPath)
@@ -59,4 +70,9 @@
     送信
   </button>
 </form>
+@endsection
+
+@section('scripts')
+<script src="{{ asset('js/common.js') }}" type="module"></script>
+<script src="{{ asset('js/productions/production.js') }}"></script>
 @endsection

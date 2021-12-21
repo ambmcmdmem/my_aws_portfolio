@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Production;
+use Illuminate\Support\Facades\Gate;
 
 class ProductionController extends Controller
 {
@@ -11,7 +12,8 @@ class ProductionController extends Controller
     private static $productPath = 'app.productions.';
 
     public function sell() {
-        return view(self::$productPath . 'edit');
+        $production = '';
+        return view(self::$productPath . 'edit', compact('production'));
     }
 
     public function show(Production $production) {
@@ -43,10 +45,20 @@ class ProductionController extends Controller
     }
 
     public function edit(Production $production) {
-        return view(self::$productPath . 'edit', compact('production'));
+        if(!Gate::allows('is-my-product', $production)) {
+            return redirect()->route('production.show', $production);
+        } else {
+            return view(self::$productPath . 'edit', compact('production'));
+        }
     }
 
     public function buy(Production $production) {
-        
+        if(Gate::allows('is-my-product', $production)) {
+            return redirect()->route('welcome');
+        } else {
+            $production->update([
+                'purchase_user_id' => auth()->user->id
+            ]);
+        }
     }
 }

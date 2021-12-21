@@ -28,6 +28,6 @@ class Production extends Model
     }
 
     public function isNowUser(): bool {
-        return $this->user->id == auth()->user()->id;
+        return $this->user_id == auth()->user()->id;
     }
 }

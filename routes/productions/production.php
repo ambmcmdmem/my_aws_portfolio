@@ -7,5 +7,6 @@ Route::get('/sell', [ProductionController::class, 'sell'])->name('production.sel
 Route::get('/{production}', [ProductionController::class, 'show'])->name('production.show');
 Route::get('/{production}/edit', [ProductionController::class, 'edit'])->name('production.edit');
 
+Route::post('/{production}/buy', [ProductionController::class, 'buy'])->name('production.buy');
 Route::post('/sell', [ProductionController::class, 'post'])->name('production.post');
-Route::get('/{production}/buy', [ProductionController::class, 'buy'])->name('production.buy');
+Route::put('/update', [ProductionController::class, 'update'])->name('production.update');

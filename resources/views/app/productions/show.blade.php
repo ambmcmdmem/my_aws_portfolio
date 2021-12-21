@@ -45,7 +45,7 @@
             <div class="modal-footer">
               <form action="{{route('production.buy', $production)}}" method="POST">
                 @csrf
-                <button type="submit"></button>
+                <button type="submit">購入する</button>
               </form>
             </div>
           </div>
