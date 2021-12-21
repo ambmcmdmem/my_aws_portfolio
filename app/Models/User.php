@@ -45,4 +45,6 @@ class User extends Authenticatable implements MustVerifyEmailContent
     public function productions() {
         return $this->hasMany(Production::class);
     }
+
+    
 }

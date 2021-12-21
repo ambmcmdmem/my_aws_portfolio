@@ -23,7 +23,7 @@ class ProductionController extends Controller
     public function post() {
         request()->validate([
             'name' => ['required'],
-            'path' => ['image'],
+            'path.*' => ['image'],
             'price' => ['integer', 'min:1', 'required']
         ]);
 
@@ -34,10 +34,12 @@ class ProductionController extends Controller
         ]);
 
         if(request('path')) {
-            $path = request('path')->store('images');
-            $production->images()->create([
-                'path' => $path
-            ]);
+            foreach(request('path') as $requestPath) {
+                $productInsertPath = $requestPath->store('images');
+                $production->images()->create([
+                    'path' => $productInsertPath
+                ]);
+            }
         }
 
         return back()->with('success', '投稿が成功しました！');

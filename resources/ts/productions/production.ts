@@ -1,3 +1,3 @@
 import { selectImgDisplay } from "../common";
 
-selectImgDisplay('pathSelect', 'displayImg');
+selectImgDisplay('pathSelect', 'displayImgWrap');

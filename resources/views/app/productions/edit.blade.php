@@ -40,13 +40,15 @@ $formRoute = $isEditPage ? route('production.update') : route('production.post')
       </div>
     @endif
     <div>
-      <input id="pathSelect" class="d-block" type="file" name="path">
-      <img width="100" id="displayImg" src="" alt="">
+      <input id="pathSelect" class="d-block" type="file" name="path[]" accept="image/*" multiple>
+      <div id="displayImgWrap"></div>
     </div>
-    @if($errors->get('path'))
+    @if($errors->get('path.*'))
     <ul>
-      @foreach($errors->get('path') as $errorPath)
-        <li>{{$errorPath}}</li>
+      @foreach($errors->get('path.*') as $errorPathArr)
+        @foreach($errorPathArr as $errorPath)
+          <li>{{$errorPath}}</li>
+        @endforeach
       @endforeach
     </ul>
     @endif

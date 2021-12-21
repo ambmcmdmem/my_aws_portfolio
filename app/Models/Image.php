@@ -23,8 +23,6 @@ class Image extends Model
     public function getPathAttribute($value) {
         if($value) {
             return asset('storage/' . $value);
-        } else {
-            return self::$noImgPath;
         }
     }
 }
