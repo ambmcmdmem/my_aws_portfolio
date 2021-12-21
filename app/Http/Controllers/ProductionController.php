@@ -17,8 +17,7 @@ class ProductionController extends Controller
     }
 
     public function show(Production $production) {
-        $noImgPath = \App\Models\Image::getNoImgPath();
-        return view(self::$productPath . 'show', compact('production', 'noImgPath'));
+        return view(self::$productPath . 'show', compact('production'));
     }
 
     public function post() {
@@ -57,8 +56,14 @@ class ProductionController extends Controller
             return redirect()->route('welcome');
         } else {
             $production->update([
-                'purchase_user_id' => auth()->user->id
+                'purchase_user_id' => auth()->user()->id
             ]);
+
+            return redirect()->route('production.show', $production);
         }
+    }
+
+    public function chat(Production $production) {
+        return view(self::$productPath . 'chat', compact('production'));
     }
 }

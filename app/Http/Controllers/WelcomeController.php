@@ -17,8 +17,6 @@ class WelcomeController extends Controller
             $productions = $productions->where('user_id', '!=', $my_id);
         }
 
-        $noImgPath = \App\Models\Image::getNoImgPath();
-
-        return view('welcome', compact('productions', 'noImgPath'));
+        return view('welcome', compact('productions'));
     }
 }

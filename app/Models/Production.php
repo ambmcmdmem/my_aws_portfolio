@@ -12,7 +12,8 @@ class Production extends Model
     protected $fillable = [
         'name',
         'desc',
-        'price'
+        'price',
+        'purchase_user_id'
     ];
 
     public function user() {

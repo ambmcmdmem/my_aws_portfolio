@@ -17,7 +17,6 @@ class AddPurchaseInfoToProductionsTable extends Migration
             //
             $table->integer('purchase_user_id')->nullable();
             $table->boolean('paid')->default(0);
-            $table->boolean('notification')->default(0);
         });
     }
 
@@ -32,7 +31,6 @@ class AddPurchaseInfoToProductionsTable extends Migration
             //
             $table->dropColumn('purchase_user_id');
             $table->dropColumn('paid');
-            $table->dropColumn('notification');
         });
     }
 }

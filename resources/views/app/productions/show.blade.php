@@ -9,11 +9,11 @@
 <div class="d-flex">
   <div class="w-75">
     @empty($production->images[0])
-      <img src="{{$noImgPath}}" alt="not found">
+      <img width="200" src="{{ My_func::getNoImgPath() }}" alt="not found">
     @else
       <?php $productImgNum = 1 ?>
       @foreach($production->images as $productImg)
-        <img src="{{$productImg->path}}" alt="画像 {{$productImgNum++}}枚目">
+        <img width="200" src="{{$productImg->path}}" alt="画像 {{$productImgNum++}}枚目">
       @endforeach
     @endif
 
@@ -23,7 +23,13 @@
   </div>
   
   <div class="w-25">
-    @if($production->isNowUser())
+    @if($production->purchase_user_id !== null)
+      @if($production->purchase_user_id == auth()->user()->id)
+        <a href="{{ route('production.chat', $production) }}">取引ページへ</a>
+      @else
+        <div>もうすでに落札されています。</div>
+      @endif
+    @elseif($production->isNowUser())
       <a href="{{route('production.edit', $production)}}">編集する</a>
     @else
       <!-- Button trigger modal -->

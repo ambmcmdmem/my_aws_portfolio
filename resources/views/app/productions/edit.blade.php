@@ -53,7 +53,7 @@ $formRoute = $isEditPage ? route('production.update') : route('production.post')
   </label>
   <label>
     <div>値段</div>
-    <input type="number" name="price" min="1" value="{{My_func::retFormInputVal($production, 'price')}}" required>
+    <input type="number" name="price" min="1" value="{{ My_func::retFormInputVal($production, 'price') }}" required>
     @if($errors->get('price'))
     <ul>
       @foreach($errors->get('price') as $errorPrice)

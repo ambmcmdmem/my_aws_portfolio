@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Lib\My_func;
 
 class Image extends Model
 {
@@ -14,14 +15,6 @@ class Image extends Model
     protected $fillable = [
         'path'
     ];
-
-    function __construct() {
-        self::$noImgPath = self::getNoImgPath();
-    }
-
-    public static function getNoImgPath(): string {
-        return asset('img/noimage.png');
-    }
 
     public function productions() {
         return $this->morphedByMany(Production::class, 'imageable');

@@ -103,9 +103,9 @@
                 <li class="w-25">
                     <a href="{{route('production.show', $production)}}">
                         @empty($production->images[0])
-                            <img width="200" src="{{$noImgPath}}" alt="画像がありません">
+                            <img width="200" src="{{ My_func::getNoImgPath() }}" alt="画像がありません">
                         @else
-                            <img width="200" src="{{$production->images[0]->path}}" alt="{{$production->name}} 画像">
+                            <img width="200" src="{{ $production->images[0]->path }}" alt="{{ $production->name }} 画像">
                         @endif
                         <h3>{{$production->name}}</h3>
                         <p>{{$production->desc}}</p>
