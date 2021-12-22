@@ -3,7 +3,7 @@
 @section('content')
 
 <div>
-  <img src="" alt="">
+  <img src="{{ $user->getAvatarPath() }}" alt="">
 </div>
 
 @endsection

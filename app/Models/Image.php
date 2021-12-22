@@ -16,6 +16,10 @@ class Image extends Model
         'path'
     ];
 
+    public function user() {
+        return $this->morphOne(User::class, 'imageable');
+    }
+
     public function productions() {
         return $this->morphedByMany(Production::class, 'imageable');
     }

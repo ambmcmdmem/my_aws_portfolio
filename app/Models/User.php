@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Lib\My_func;
 
 class User extends Authenticatable implements MustVerifyEmailContent
 {
@@ -42,9 +43,15 @@ class User extends Authenticatable implements MustVerifyEmailContent
         'email_verified_at' => 'datetime',
     ];
 
-    public function productions() {
-        return $this->hasMany(Production::class);
+    public function image() {
+        return $this->morphTo();
     }
 
-    
+    public function getAvatarPath() {
+        if(!empty($this->image()->path)) {
+            return $this->image()->path;
+        } else {
+            return My_func::getNoUserPath();
+        }
+    }
 }

@@ -35,7 +35,7 @@ class ProductionController extends Controller
 
         if(request('path')) {
             foreach(request('path') as $requestPath) {
-                $productInsertPath = $requestPath->store('images');
+                $productInsertPath = $requestPath->store('images/productions');
                 $production->images()->create([
                     'path' => $productInsertPath
                 ]);
