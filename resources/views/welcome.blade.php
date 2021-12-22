@@ -92,21 +92,18 @@
             </div>
         </div>
     </div> -->
-    <div>
+    <div id="productListWrap">
+        <x-productions.search></x-productions.search>
         <!-- 商品が存在しない -->
         @empty($productions[0])
             notfound
         <!-- ,,する -->
         @else
-            <ul class="d-flex flex-wrap">
+            <ul id="productList" class="d-flex flex-wrap">
             @foreach($productions as $production)
                 <li class="w-25">
                     <a href="{{route('production.show', $production)}}">
-                        @empty($production->images[0])
-                            <img width="200" src="{{ My_func::getNoImgPath() }}" alt="画像がありません">
-                        @else
-                            <img width="200" src="{{ $production->images[0]->path }}" alt="{{ $production->name }} 画像">
-                        @endif
+                        <img width="200" src="{{ $production->getFirstImgPath() }}" alt="{{ $production->name }} 画像">
                         <h3>{{$production->name}}</h3>
                         <p>{{$production->desc}}</p>
                         <p><strong>{{$production->price}}</strong></p>

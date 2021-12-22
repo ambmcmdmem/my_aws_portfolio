@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Lib\My_func;
 
 class Production extends Model
 {
@@ -26,6 +27,26 @@ class Production extends Model
 
     public function images() {
         return $this->morphToMany(Image::class, 'imageable');
+    }
+
+    public function getImgArr(): array {
+        if(empty($this->images[0])) {
+            return [
+                (object)[
+                    'path' => My_func::getNoImgPath()
+                ]
+            ];
+        } else {
+            return $this->images;
+        }
+    }
+
+    public function getFirstImgPath(): string {
+        if(empty($this->images[0])) {
+            return My_func::getNoImgPath();
+        } else {
+            return $this->images[0]->path;
+        }
     }
 
     public function isNowUser(): bool {

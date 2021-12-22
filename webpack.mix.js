@@ -24,6 +24,7 @@ mix.js('resources/js/app.js', jsPath)
     // .ts('resources/ts/common.ts', 'public/js')
     .ts(fromTsToPublicJsArr, jsPath)
     .ts('resources/ts/productions/production.ts', jsPath + '/productions')
+    .ts('resources/ts/productions/search/search.tsx', jsPath + '/productions/search')
     .react()
     .sass('resources/sass/app.scss', cssPath);
 

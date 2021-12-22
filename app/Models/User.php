@@ -43,6 +43,10 @@ class User extends Authenticatable implements MustVerifyEmailContent
         'email_verified_at' => 'datetime',
     ];
 
+    public function productions() {
+        return $this->hasMany(Production::class);
+    }
+
     public function image() {
         return $this->morphTo();
     }

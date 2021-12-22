@@ -2,20 +2,12 @@
 
 @section('content')
 
-<?php
-?>
-
-
 <div class="d-flex">
   <div class="w-75">
-    @empty($production->images[0])
-      <img width="200" src="{{ My_func::getNoImgPath() }}" alt="not found">
-    @else
-      <?php $productImgNum = 1 ?>
-      @foreach($production->images as $productImg)
-        <img width="200" src="{{$productImg->path}}" alt="画像 {{$productImgNum++}}枚目">
-      @endforeach
-    @endif
+    <?php $productImgNum = 1 ?>
+    @foreach($production->getImgArr() as $productImg)
+      <img width="200" src="{{$productImg->path}}" alt="画像 {{$productImgNum++}}枚目">
+    @endforeach
 
     <h2>{{$production->name}}</h2>
     <p>{{$production->desc}}</p>
