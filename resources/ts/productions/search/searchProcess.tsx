@@ -9,8 +9,8 @@ const SearchProcess: React.VFC<Props> = (props) => {
   return (
     <>
       <ul>
-        {props.productItems.map((productItem) => {
-          return <li>{productItem}</li>
+        {props.productItems.map((productItem, productItemIndex) => {
+          return <li key={productItemIndex}>{productItem}</li>
         })}
       </ul>
     </>

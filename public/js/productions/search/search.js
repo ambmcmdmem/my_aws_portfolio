@@ -2083,21 +2083,37 @@ var react_2 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var searchBox_1 = __importDefault(__webpack_require__(/*! ./searchBox */ "./resources/ts/productions/search/searchBox.tsx"));
 
-var App = function App() {
-  var _a = (0, react_2.useState)([]),
-      fetchProduct = _a[0],
-      setFetchProduct = _a[1];
+var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
 
-  var isFirstRender = (0, react_2.useRef)(false);
-  (0, react_2.useEffect)(function () {
-    isFirstRender.current = true;
-  }, []);
-  (0, react_2.useEffect)(function () {
-    if (isFirstRender) {
-      isFirstRender.current = false;
-    } else {}
-  });
-  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(searchBox_1["default"], null), react_1["default"].createElement(searchProcess_1["default"], {
+var App = function App() {
+  var _a = (0, react_2.useState)(''),
+      productSearchTxt = _a[0],
+      setProductSearchTxt = _a[1];
+
+  var _b = (0, react_2.useState)([]),
+      fetchProduct = _b[0],
+      setFetchProduct = _b[1];
+
+  var inputProductSearchTxt = function inputProductSearchTxt(e) {
+    setProductSearchTxt(function () {
+      return e.target.value;
+    });
+  };
+
+  var searchProduct = function searchProduct() {
+    axios_1["default"].post('/api/productions', {
+      name: productSearchTxt
+    }).then(function (res) {
+      setFetchProduct(res.data);
+    })["catch"](function () {
+      alert('失敗');
+    });
+  };
+
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(searchBox_1["default"], {
+    inputProductSearchTxt: inputProductSearchTxt,
+    searchProduct: searchProduct
+  }), react_1["default"].createElement(searchProcess_1["default"], {
     productItems: fetchProduct
   }));
 };
@@ -2127,38 +2143,18 @@ Object.defineProperty(exports, "__esModule", ({
 
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
-var react_2 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
-
-var SearchBox = function SearchBox() {
-  var _a = (0, react_2.useState)(''),
-      productSearchTxt = _a[0],
-      setProductSearchTxt = _a[1];
-
-  var inputProductSearchTxt = function inputProductSearchTxt(e) {
-    setProductSearchTxt(function () {
-      return e.target.value;
-    });
-  };
-
-  var searchProduct = function searchProduct() {
-    axios_1["default"].post('/api/productions', {
-      name: productSearchTxt
-    }).then(function (res) {
-      console.log(res.data);
-    })["catch"](function () {
-      console.log('失敗');
-    });
-  };
-
+var SearchBox = function SearchBox(props) {
   return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("input", {
     type: "text",
     name: "productSearchTxt",
     placeholder: "\u5546\u54C1\u540D",
-    onChange: inputProductSearchTxt
+    onChange: function onChange(e) {
+      return props.inputProductSearchTxt(e);
+    }
   }), react_1["default"].createElement("button", {
-    onClick: searchProduct
+    onClick: function onClick() {
+      return props.searchProduct();
+    }
   }, react_1["default"].createElement("i", {
     className: "fas fa-search"
   })));
@@ -2190,8 +2186,10 @@ Object.defineProperty(exports, "__esModule", ({
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
 var SearchProcess = function SearchProcess(props) {
-  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("ul", null, props.productItems.map(function (productItem) {
-    return react_1["default"].createElement("li", null, productItem);
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("ul", null, props.productItems.map(function (productItem, productItemIndex) {
+    return react_1["default"].createElement("li", {
+      key: productItemIndex
+    }, productItem);
   })));
 };
 
