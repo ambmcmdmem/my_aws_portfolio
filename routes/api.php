@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('productions', api\ProductionController::class);
-// Route::get('test', [ProductionController::class, '__invoke']);
+// Route::resoure('productions', api\ProductionController::class);
+Route::post('productions', [api\ProductionController::class, 'index']);

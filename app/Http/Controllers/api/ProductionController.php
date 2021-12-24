@@ -35,6 +35,7 @@ class ProductionController extends Controller
     public function create()
     {
         //
+        return response()->json('test', 200);
     }
 
     /**

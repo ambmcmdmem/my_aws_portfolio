@@ -2143,12 +2143,10 @@ var SearchBox = function SearchBox() {
   };
 
   var searchProduct = function searchProduct() {
-    // const token:string = (document.getElementsByName('csrf-token')[0] as HTMLMetaElement).content;
-    // axios.defaults.headers.common["Authorization"] = token;
     axios_1["default"].post('/api/productions', {
       name: productSearchTxt
-    }).then(function (response) {
-      console.log(response);
+    }).then(function (res) {
+      console.log(res.data);
     })["catch"](function () {
       console.log('失敗');
     });
