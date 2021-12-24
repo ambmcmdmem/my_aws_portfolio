@@ -1,18 +1,17 @@
-
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { useState } from 'react'
- 
-const SearchProcess = () => {
-  const [fetchProduct, setFetchProduct] = useState([]);
-  const productListElement = fetchProduct.map((production) => {
-    <li>{production}</li>
-  });
 
+type Props = {
+  productItems: string[]
+}
+ 
+const SearchProcess: React.VFC<Props> = (props) => {
   return (
     <>
       <ul>
-        {productListElement}
+        {props.productItems.map((productItem) => {
+          return <li>{productItem}</li>
+        })}
       </ul>
     </>
   )
