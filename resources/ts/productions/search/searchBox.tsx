@@ -1,11 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
-import axios from 'axios';
-
-type Props = {
-  inputProductSearchTxt: (e: React.ChangeEvent<HTMLInputElement>) => void,
-  searchProduct: () => void
-}
+import { SearchBoxFunc as Props } from '../variables';
 
 const SearchBox: React.VFC<Props> = (props) => {
   return (

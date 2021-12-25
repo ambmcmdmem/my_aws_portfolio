@@ -1,24 +1,26 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import SearchProcess from './searchProcess'
-import { useState, useEffect } from 'react'
 import SearchBox from './searchBox';
 import axios from 'axios';
- 
+import { ProductInfo } from '../variables';
+
 const App = () => {
-  const [productSearchTxt, setProductSearchTxt] = useState('');
-  const [fetchProduct, setFetchProduct] = useState([]);
+  const productSearchTxt = useRef('');
+  const [fetchProducts, setFetchProducts] = useState<ProductInfo[]>([]);
   const inputProductSearchTxt = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProductSearchTxt(() => e.target.value);
+    productSearchTxt.current = e.target.value;
   };
+
+  console.log(fetchProducts);
 
   const searchProduct = () => {
     axios
       .post('/api/productions', {
-        name: productSearchTxt,
+        name: productSearchTxt.current,
       })
       .then(res => {
-        setFetchProduct(res.data);
+        setFetchProducts(res.data);
       })
       .catch(() => {
         alert('失敗');
@@ -28,7 +30,7 @@ const App = () => {
   return (
     <>
       <SearchBox inputProductSearchTxt={inputProductSearchTxt} searchProduct={searchProduct} />
-      <SearchProcess productItems={fetchProduct}/>
+      <SearchProcess productItems={fetchProducts}/>
     </>
   )
 }

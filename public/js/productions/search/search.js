@@ -2063,6 +2063,40 @@ module.exports = {
 "use strict";
 
 
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -2073,38 +2107,34 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
 var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
 
 var searchProcess_1 = __importDefault(__webpack_require__(/*! ./searchProcess */ "./resources/ts/productions/search/searchProcess.tsx"));
-
-var react_2 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var searchBox_1 = __importDefault(__webpack_require__(/*! ./searchBox */ "./resources/ts/productions/search/searchBox.tsx"));
 
 var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
 
 var App = function App() {
-  var _a = (0, react_2.useState)(''),
-      productSearchTxt = _a[0],
-      setProductSearchTxt = _a[1];
+  var productSearchTxt = (0, react_1.useRef)('');
 
-  var _b = (0, react_2.useState)([]),
-      fetchProduct = _b[0],
-      setFetchProduct = _b[1];
+  var _a = (0, react_1.useState)([]),
+      fetchProducts = _a[0],
+      setFetchProducts = _a[1];
 
   var inputProductSearchTxt = function inputProductSearchTxt(e) {
-    setProductSearchTxt(function () {
-      return e.target.value;
-    });
+    productSearchTxt.current = e.target.value;
   };
+
+  console.log(fetchProducts);
 
   var searchProduct = function searchProduct() {
     axios_1["default"].post('/api/productions', {
-      name: productSearchTxt
+      name: productSearchTxt.current
     }).then(function (res) {
-      setFetchProduct(res.data);
+      setFetchProducts(res.data);
     })["catch"](function () {
       alert('失敗');
     });
@@ -2114,7 +2144,7 @@ var App = function App() {
     inputProductSearchTxt: inputProductSearchTxt,
     searchProduct: searchProduct
   }), react_1["default"].createElement(searchProcess_1["default"], {
-    productItems: fetchProduct
+    productItems: fetchProducts
   }));
 };
 
@@ -2189,7 +2219,7 @@ var SearchProcess = function SearchProcess(props) {
   return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("ul", null, props.productItems.map(function (productItem, productItemIndex) {
     return react_1["default"].createElement("li", {
       key: productItemIndex
-    }, productItem);
+    }, productItem.name);
   })));
 };
 

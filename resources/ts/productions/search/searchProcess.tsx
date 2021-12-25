@@ -1,16 +1,12 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-
-type Props = {
-  productItems: string[]
-}
+import { ProductInfoArr as Props } from '../variables'
  
 const SearchProcess: React.VFC<Props> = (props) => {
   return (
     <>
       <ul>
         {props.productItems.map((productItem, productItemIndex) => {
-          return <li key={productItemIndex}>{productItem}</li>
+          return <li key={productItemIndex}>{productItem.name}</li>
         })}
       </ul>
     </>
