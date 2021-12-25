@@ -2128,8 +2128,6 @@ var App = function App() {
     productSearchTxt.current = e.target.value;
   };
 
-  console.log(fetchProducts);
-
   var searchProduct = function searchProduct() {
     axios_1["default"].post('/api/productions', {
       name: productSearchTxt.current
@@ -2137,9 +2135,12 @@ var App = function App() {
       setFetchProducts(res.data);
     })["catch"](function () {
       alert('失敗');
-    });
+    })["finally"](function () {});
   };
 
+  (0, react_1.useEffect)(function () {
+    searchProduct();
+  }, []);
   return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(searchBox_1["default"], {
     inputProductSearchTxt: inputProductSearchTxt,
     searchProduct: searchProduct
@@ -2216,10 +2217,20 @@ Object.defineProperty(exports, "__esModule", ({
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
 var SearchProcess = function SearchProcess(props) {
-  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("ul", null, props.productItems.map(function (productItem, productItemIndex) {
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("ul", {
+    id: "productList",
+    className: "d-flex flex-wrap"
+  }, props.productItems.map(function (productItem, productItemIndex) {
     return react_1["default"].createElement("li", {
-      key: productItemIndex
-    }, productItem.name);
+      key: productItemIndex,
+      className: "w-25"
+    }, react_1["default"].createElement("a", {
+      href: "{{ route('production.show', $production) }}"
+    }, react_1["default"].createElement("img", {
+      width: "200",
+      src: "{ $production->getFirstImgPath() }}",
+      alt: productItem.name + "画像"
+    }), react_1["default"].createElement("h3", null, productItem.name), react_1["default"].createElement("p", null, productItem.desc), react_1["default"].createElement("p", null, react_1["default"].createElement("strong", null, productItem.price))));
   })));
 };
 

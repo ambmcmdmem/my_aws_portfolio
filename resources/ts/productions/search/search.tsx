@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import SearchProcess from './searchProcess'
 import SearchBox from './searchBox';
@@ -12,8 +12,6 @@ const App = () => {
     productSearchTxt.current = e.target.value;
   };
 
-  console.log(fetchProducts);
-
   const searchProduct = () => {
     axios
       .post('/api/productions', {
@@ -24,8 +22,15 @@ const App = () => {
       })
       .catch(() => {
         alert('失敗');
+      })
+      .finally(() => {
+
       });
   };
+
+  useEffect(() => {
+    searchProduct();
+  }, [])
   
   return (
     <>
