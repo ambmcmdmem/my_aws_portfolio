@@ -2225,7 +2225,7 @@ var SearchProcess = function SearchProcess(props) {
       key: productItemIndex,
       className: "w-25"
     }, react_1["default"].createElement("a", {
-      href: "{{ route('production.show', $production) }}"
+      href: "/production/" + productItem.id
     }, react_1["default"].createElement("img", {
       width: "200",
       src: "{ $production->getFirstImgPath() }}",

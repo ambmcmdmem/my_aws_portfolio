@@ -29,6 +29,10 @@ class Production extends Model
         return $this->morphToMany(Image::class, 'imageable');
     }
 
+    public function chat_contents() {
+        return $this->hasMany(ChatContent::class);
+    }
+
     public function getImgArr(): array {
         if(empty($this->images[0])) {
             return [

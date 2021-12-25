@@ -28,5 +28,6 @@ class AuthServiceProvider extends ServiceProvider
 
         //
         Gate::define('is-my-product', [ProductionPolicy::class, 'isNowUser']);
+        Gate::define('is-buy-my-product', [ProductionPolicy::class, 'isBuyNowUser']);
     }
 }

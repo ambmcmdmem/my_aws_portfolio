@@ -3,28 +3,24 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ChatContent;
+use App\Models\User;
 use App\Models\Production;
 use Illuminate\Http\Request;
 
-class ProductionController extends Controller
+class ChatContentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Production $production)
     {
         //
-        $matchProductions;
+        $matchChatContents = ChatContent::whereProductionId($production->id)->get();
 
-        // if(!empty($_REQUEST)) {
-        if(!empty(request('name'))) {
-            $matchProductions = Production::whereName(request('name'))->get();
-        } else {
-            $matchProductions = Production::all();
-        }
-        return response()->json($matchProductions, 200);
+        return response()->json($matchChatContents, 200);
     }
 
     /**
@@ -32,9 +28,19 @@ class ProductionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Production $production)
     {
-        //
+        request()->validate([
+            'body' => ['required']
+        ]);
+
+        $createChatContent = ChatContent::create([
+            'user_id' => auth()->user()->id,
+            'production_id' => $production->id,
+            'body' => request('body')
+        ]);
+
+        return response()->json($createChatContent, 200);
     }
 
     /**
@@ -51,10 +57,10 @@ class ProductionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Production  $production
+     * @param  \App\Models\ChatContent  $chatContent
      * @return \Illuminate\Http\Response
      */
-    public function show(Production $production)
+    public function show(ChatContent $chatContent)
     {
         //
     }
@@ -62,10 +68,10 @@ class ProductionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Production  $production
+     * @param  \App\Models\ChatContent  $chatContent
      * @return \Illuminate\Http\Response
      */
-    public function edit(Production $production)
+    public function edit(ChatContent $chatContent)
     {
         //
     }
@@ -74,10 +80,10 @@ class ProductionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Production  $production
+     * @param  \App\Models\ChatContent  $chatContent
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Production $production)
+    public function update(Request $request, ChatContent $chatContent)
     {
         //
     }
@@ -85,10 +91,10 @@ class ProductionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Production  $production
+     * @param  \App\Models\ChatContent  $chatContent
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Production $production)
+    public function destroy(ChatContent $chatContent)
     {
         //
     }

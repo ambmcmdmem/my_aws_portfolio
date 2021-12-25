@@ -7,7 +7,7 @@ const SearchProcess: React.VFC<Props> = (props) => {
       <ul id="productList" className="d-flex flex-wrap">
         {props.productItems.map((productItem, productItemIndex) => {
           return (<li key={productItemIndex} className="w-25">
-            <a href="{{ route('production.show', $production) }}">
+            <a href={"/production/" + productItem.id}>
                 <img width="200" src="{ $production->getFirstImgPath() }}" alt={ productItem.name + "画像" } />
                 <h3>{ productItem.name }</h3>
                 <p>{ productItem.desc }</p>

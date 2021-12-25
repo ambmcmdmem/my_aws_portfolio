@@ -92,7 +92,12 @@ class ProductionPolicy
         //
     }
 
-    public function isNowUser(User $user, Production $production): bool {
+    public function isNowUser(User $user, Production $production) {
         return $user->id == $production->user_id;
+    }
+    
+
+    public function isBuyNowUser(User $user, Production $production) {
+        return $user->id = $production->purchase_user_id;
     }
 }

@@ -19,4 +19,16 @@
   <h2>{{ $production->user->name }}</h2>
 </div>
 
+<div>
+  <div>メッセージをしましょう。</div>
+  <ul id="chatListWrap">
+  </ul>
+
+  <form action="" method="POST">
+    @csrf
+    <input type="text">
+    <button>送信</button>
+  </form>
+</div>
+
 @endsection

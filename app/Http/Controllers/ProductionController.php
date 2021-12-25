@@ -66,6 +66,10 @@ class ProductionController extends Controller
     }
 
     public function chat(Production $production) {
-        return view(self::$productPath . 'chat', compact('production'));
+        if(Gate::allows('is-buy-my-product', $production)) {
+            return view(self::$productPath . 'chat', compact('production'));
+        } else {
+            return redirect()->route('welcome');
+        }
     }
 }

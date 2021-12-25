@@ -21,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Route::resoure('productions', api\ProductionController::class);
 Route::post('productions', [api\ProductionController::class, 'index']);
+
+Route::post('chatContents/{$production}', [api\ChatContentController::class, 'index']);
+Route::post('chatContents/{$production}/create', [api\ChatContentController::class, 'create']);
