@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/js/productions/production.js": "/js/productions/production.js",
     "/js/productions/search/search.js": "/js/productions/search/search.js",
+    "/js/productions/chat/chat.js": "/js/productions/chat/chat.js",
     "/css/app.css": "/css/app.css"
 }

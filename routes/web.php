@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\api;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +28,10 @@ Auth::routes(['verify' => true]);
 Route::middleware(['verified'])->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
+
+
+
+Route::post('productions', [api\ProductionController::class, 'index']);
+
+Route::post('api/chatContents/{production}', [api\ChatContentController::class, 'index']);
+Route::post('api/chatContents/{production}/create', [api\ChatContentController::class, 'create']);

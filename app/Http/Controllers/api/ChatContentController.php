@@ -31,13 +31,13 @@ class ChatContentController extends Controller
     public function create(Production $production)
     {
         request()->validate([
-            'body' => ['required']
+            'chatBody' => ['required']
         ]);
 
         $createChatContent = ChatContent::create([
             'user_id' => auth()->user()->id,
             'production_id' => $production->id,
-            'body' => request('body')
+            'body' => request('chatBody')
         ]);
 
         return response()->json($createChatContent, 200);

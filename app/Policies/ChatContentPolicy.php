@@ -2,11 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\Production;
+use App\Models\ChatContent;
 use App\Models\User;
+use App\Models\Production;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProductionPolicy
+class ChatContentPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +26,10 @@ class ProductionPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Production  $production
+     * @param  \App\Models\ChatContent  $chatContent
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Production $production)
+    public function view(User $user, ChatContent $chatContent)
     {
         //
     }
@@ -48,10 +49,10 @@ class ProductionPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Production  $production
+     * @param  \App\Models\ChatContent  $chatContent
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Production $production)
+    public function update(User $user, ChatContent $chatContent)
     {
         //
     }
@@ -60,10 +61,10 @@ class ProductionPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Production  $production
+     * @param  \App\Models\ChatContent  $chatContent
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Production $production)
+    public function delete(User $user, ChatContent $chatContent)
     {
         //
     }
@@ -72,10 +73,10 @@ class ProductionPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Production  $production
+     * @param  \App\Models\ChatContent  $chatContent
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Production $production)
+    public function restore(User $user, ChatContent $chatContent)
     {
         //
     }
@@ -84,19 +85,15 @@ class ProductionPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Production  $production
+     * @param  \App\Models\ChatContent  $chatContent
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Production $production)
+    public function forceDelete(User $user, ChatContent $chatContent)
     {
         //
     }
 
-    public function isNowUser(User $user, Production $production) {
-        return $user->id == $production->user_id;
-    }
-    
-    public function isBuyNowUser(User $user, Production $production) {
-        return $user->id = $production->purchase_user_id;
+    public function isNowProduction(Production $production, ChatContent $chatContent) {
+        return $production->id === $chatContent->production_id;
     }
 }

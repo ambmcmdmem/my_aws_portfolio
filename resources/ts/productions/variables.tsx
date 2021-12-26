@@ -17,3 +17,9 @@ export type ProductInfo = {
   created_at: string,
   updated_at: string
 }
+
+
+export type ChatFunc = {
+  inputChatTxt: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  createChatContents: () => void
+};
